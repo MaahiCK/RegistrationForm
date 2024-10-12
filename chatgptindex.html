@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+ 
+
+    <title>Registration Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        *{
+              margin: 0;
+              padding: 0;
+              font-family: "Poppins", sans-serif;
+              font-size: 1.1rem;
+        }
+        body{
+              background-color: rgb(0 0 33);
+              color:white;
+        }
+        header{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+          header div{
+              background-color: rgb(18 18 62) ;
+              width:100vw;
+              height:10vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+         .box{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #11116b;
+            gap:3vh;
+            border: 1px solid  #11116b ;
+            border-radius: 50px;
+            width:30vw;
+            height:50vh;
+            opacity: 0.7;
+            position: relative;
+         }
+         main{
+              height:90vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+         }
+         #button{
+               width:60%;
+               color:white;
+               border:1px solid  rgb(18 18 62);
+               border-radius:30px;
+               background-color: rgb(13, 13, 240);
+               margin: 20px;
+               transition: all ease-in-out 0.5s;
+         }
+         input{
+              background-color: rgb(242, 240, 240);
+              border:1px solid white;
+              border-radius: 20px;
+              font-family:"Caveat", "cursive";
+         }
+         input::placeholder{
+              font-family:"Caveat", "cursive";
+         }
+         #button:hover{
+              cursor:pointer;
+              transform: scale(110%);
+         }
+         #registrationForm{
+               display: flex;
+               flex-direction: column;
+               gap:2vh;
+         }
+         @media (max-width: 1080px) {
+              .box{
+                  height:50vh;
+                  width:60vw;
+              }
+
+              *{
+                  font-size: 2rem;
+              }
+         }
+    </style>
+</head>
+<body>
+    <header>
+        <div><span>Registration Page</span></div>
+    </header>
+    <main>
+        <div class="box">
+            <img src="./login icon.png" alt="" width="100px" class="img">
+            <div>Register</div>
+            <form id="registrationForm">
+                <div class="loginid">
+                    <input type="text" id="userId" placeholder="User ID" required>
+                </div>
+                <div class="mobile">
+                    <input type="text" id="mobileNumber" placeholder="Mobile Number" required>
+                </div>
+                <div class="password">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" id="button">Submit</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const userId = document.getElementById('userId').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id: userId, mobile_number: mobileNumber, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display success or error message
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
